@@ -30,14 +30,14 @@ class Responseheader
 
     public function GetResponseHeader()
     {
-        $headerResponseObj = (object)[
+        $headerResponseObj = (object)array(
             "Host" => $this->CI->output->get_header("Host"),
             "Content-Type" => $this->CI->output->get_header("Content-Type"),
             "Content-Length" => $this->CI->output->get_header("Content-Length"),
             "Date" => $this->CI->output->get_header("Date"),
             "Connection" => $this->CI->output->get_header("Connection"),
             "Accept-Encoding" => $this->CI->output->get_header("Accept-Encoding")
-        ];
+        );
 
         return json_encode($headerResponseObj);
     }

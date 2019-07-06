@@ -9,6 +9,10 @@ class General extends CI_Model
     {
         $this->table = $table;
     }
+	
+	public function Post($data){
+		return $this->db->where($data)->get($this->table)->first_row();
+	}
 
     public function GetAll()
     {
@@ -34,4 +38,5 @@ class General extends CI_Model
     {
         return $this->db->insert($this->table, $data);
     }
+	
 }

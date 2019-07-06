@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-include 'HttpVerbs.php';
+include_once 'HttpVerbs.php';
 class Responsebody extends HttpVerbs
 {
    private $general;
@@ -8,6 +8,7 @@ class Responsebody extends HttpVerbs
    {
       $CI = &get_instance();
       $CI->load->model("general");
+      $CI->load->helper("utilities");
       $this->general = $CI->general;
       $this->general->SetTable($config["table"]);
    }
@@ -29,7 +30,7 @@ class Responsebody extends HttpVerbs
       $delete = false;
       if ($id)
          $delete = $this->general->Delete($id);
-      $status = ["delete" => $delete];
+      $status = array("delete" => $delete);
       echo json_encode($status);
    }
 
@@ -38,15 +39,31 @@ class Responsebody extends HttpVerbs
       $update = false;
       if ($id)
          $update = $this->general->Patch($id, $data);
-      $status = ["update" => $update];
+      $status = array("update" => $update);
       echo json_encode($status);
    }
 
    public function Put($data)
    {
       $insert = false;
+      $data = StripValues($data);
       $insert = $this->general->Put($data);
-      $status = ["insert" => $insert];
+      $status = array("insert" => $insert);
       echo json_encode($status);
    }
+
+    /**
+     * @param $data
+     */
+    public function Post($data = array())
+   {
+
+      $data = StripValues($data);
+      $row =  $this->general->Post($data);
+      $check = isset($row);
+      $status = array("check" => $check);
+      $array = $check ? array("status" => $status, "data" => $row) : $status;
+
+      return json_encode($array, JSON_UNESCAPED_UNICODE);
+    }
 }

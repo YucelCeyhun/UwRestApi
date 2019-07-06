@@ -18,6 +18,8 @@ class Users extends MY_Controller
     function GetAll()
     {
         $this->responsebody->GetAll();
+
+
     }
 
     function Get($id)

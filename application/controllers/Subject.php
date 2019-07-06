@@ -36,4 +36,11 @@ class Subject extends MY_Controller
         $data = $this->input->input_stream();
         $this->responsebody->Put($data);
     }
+
+    function Post()
+    {
+        $data = $this->input->input_stream();
+        $this->responsebody->Post($data);
+		echo json_encode($data);
+    }
 }

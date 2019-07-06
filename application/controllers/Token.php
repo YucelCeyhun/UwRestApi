@@ -9,6 +9,8 @@ class Token extends CI_Controller
         $this->responseheader->CreateResponseHeader();
         $this->load->library("jwt");
         $this->load->library("auth");
+		$config["table"] = "users";
+        $this->load->library("responsebody", $config);
     }
 
     public function GetAll()
@@ -36,4 +38,8 @@ class Token extends CI_Controller
 
         echo json_encode($token);
     }
+	
+	private function CheckReferer(){
+		
+	}
 }
